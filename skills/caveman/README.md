@@ -42,7 +42,45 @@ Caveman (full):
 Caveman (ultra):
 > Inline obj prop → new ref → re-render. `useMemo`.
 
+## Wenyan Translation Mode
+
+When you want Claude to think in classical Chinese while you type in English.
+
+**How it works:**
+1. You type in English
+2. Hook translates your prompt EN→ZH via Google Translate
+3. Claude sees and responds in Mandarin (wenyan mode)
+4. MCP middleware translates the response ZH→EN
+5. You see English output
+
+**Setup:**
+
+1. Get Google Translate API key:
+   - Go to [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
+   - Create API Key, enable "Cloud Translation API"
+   - Free tier: 500K chars/month
+
+2. Add to your Claude Code `settings.json`:
+   ```json
+   {
+     "env": {
+       "GOOGLE_TRANSLATE_API_KEY": "your-key-here",
+       "CAVEMAN_TRANSLATE": "1"
+     }
+   }
+   ```
+
+3. Activate:
+   ```
+   /caveman wenyan-full
+   ```
+
+**What you get:**
+- You type English
+- Claude thinks in classical Chinese (wenyan mode)
+- You see English response
+- Translation is transparent — no code, URLs, or technical content is translated
+
 ## See also
 
 - [`SKILL.md`](./SKILL.md) — full LLM-facing instructions
-- [Caveman README](../../README.md) — repo overview, install, benchmarks

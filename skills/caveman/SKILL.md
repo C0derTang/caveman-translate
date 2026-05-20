@@ -72,3 +72,16 @@ Example — destructive op:
 ## Boundaries
 
 Code/commits/PRs: write normal. "stop caveman" or "normal mode": revert. Level persist until changed or session end.
+
+## Translation (Wenyan Mode)
+
+When wenyan mode active + CAVEMAN_TRANSLATE=1:
+- Your prompts are translated EN→ZH via Google Translate before Claude sees them
+- Claude responses in Mandarin are translated ZH→EN before you see them
+- You type English, you see English, Claude thinks in Mandarin
+
+Env vars required:
+- GOOGLE_TRANSLATE_API_KEY — Google Cloud API key (free tier: 500K chars/month)
+- CAVEMAN_TRANSLATE=1 — enable translation
+
+Translation is transparent. Code, URLs, and technical content are preserved.

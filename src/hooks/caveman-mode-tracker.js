@@ -6,7 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 const { execFileSync } = require('child_process');
-const { getDefaultMode, safeWriteFlag, readFlag, VALID_MODES } = require('./caveman-config');
+const { getDefaultMode, safeWriteFlag, readFlag, VALID_MODES, getTranslationEnabled, getGoogleTranslateApiKey } = require('./caveman-config');
 
 // Modes handled by their own slash commands (/caveman-commit, etc.) — not
 // selectable via /caveman <arg>.
@@ -14,6 +14,37 @@ const INDEPENDENT_MODES = new Set(['commit', 'review', 'compress']);
 
 const claudeDir = process.env.CLAUDE_CONFIG_DIR || path.join(os.homedir(), '.claude');
 const flagPath = path.join(claudeDir, '.caveman-active');
+
+// Returns true if the string contains Chinese characters (CJK Unified Ideographs)
+function looksLikeChinese(text) {
+  return /[一-鿿]/.test(text);
+}
+
+// Returns true if the prompt looks like code (backticks, curly braces, many newlines)
+function looksLikeCode(text) {
+  return /`/.test(text) || /\{.*\}/.test(text) || (text.split('\n').length > 8 && /\{/.test(text));
+}
+
+// Translate text via Google Translate API v2. Returns translated text or null on error.
+async function translateToZh(text, apiKey) {
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10000);
+    const url = `https://translation.googleapis.com/language/translate/v2?key=${encodeURIComponent(apiKey)}`;
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ q: text, target: 'zh', source: 'en' }),
+      signal: controller.signal
+    });
+    clearTimeout(timeout);
+    if (!res.ok) return null;
+    const json = await res.json();
+    return json?.data?.translations?.[0]?.translatedText || null;
+  } catch (e) {
+    return null;
+  }
+}
 
 let input = '';
 process.stdin.on('data', chunk => { input += chunk; });
@@ -118,6 +149,23 @@ process.stdin.on('end', () => {
     // — never inject untrusted bytes into model context.
     const activeMode = readFlag(flagPath);
     if (activeMode && !INDEPENDENT_MODES.has(activeMode)) {
+
+      // When wenyan mode is active AND translation is enabled AND the Google API
+      // key is set AND the prompt is English (not already Chinese) and not code,
+      // translate the prompt from EN to ZH before emitting. The translated prompt
+      // is what Claude sees.
+      if (activeMode.startsWith('wenyan') &&
+          getTranslationEnabled() &&
+          getGoogleTranslateApiKey()) {
+        const originalPrompt = data.prompt || '';
+        if (!looksLikeChinese(originalPrompt) && !looksLikeCode(originalPrompt)) {
+          const translated = await translateToZh(originalPrompt, getGoogleTranslateApiKey());
+          if (translated) {
+            data.prompt = translated;
+          }
+        }
+      }
+
       process.stdout.write(JSON.stringify({
         hookSpecificOutput: {
           hookEventName: "UserPromptSubmit",

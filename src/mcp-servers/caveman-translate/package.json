@@ -1,0 +1,16 @@
+{
+  "name": "caveman-translate",
+  "version": "1.0.0",
+  "description": "MCP middleware that proxies an upstream MCP server and translates ZH→EN responses transparently when CAVEMAN_TRANSLATE=1",
+  "main": "index.js",
+  "bin": {
+    "caveman-translate": "./index.js"
+  },
+  "scripts": {
+    "test": "node test.js"
+  },
+  "dependencies": {},
+  "engines": {
+    "node": ">=18"
+  }
+}

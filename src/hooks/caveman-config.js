@@ -51,11 +51,19 @@ function getDefaultMode() {
       return config.defaultMode.toLowerCase();
     }
   } catch (e) {
-    // Config file doesn't exist or is invalid — fall through
+    // Config file does not exist or is invalid — fall through
   }
 
   // 3. Default
   return 'full';
+}
+
+function getTranslationEnabled() {
+  return process.env.CAVEMAN_TRANSLATE === '1';
+}
+
+function getGoogleTranslateApiKey() {
+  return process.env.GOOGLE_TRANSLATE_API_KEY || null;
 }
 
 // Symlink-safe flag file write.
@@ -271,4 +279,4 @@ function readHistory(filePath) {
   }
 }
 
-module.exports = { getDefaultMode, getConfigDir, getConfigPath, VALID_MODES, safeWriteFlag, readFlag, appendFlag, readHistory };
+module.exports = { getDefaultMode, getConfigDir, getConfigPath, VALID_MODES, safeWriteFlag, readFlag, appendFlag, readHistory, getTranslationEnabled, getGoogleTranslateApiKey };

@@ -1,0 +1,172 @@
+{
+  "prompts": [
+    "Write a function to reverse a string in JavaScript",
+    "How do I read a file in Python and handle errors?",
+    "Explain the difference between let and const in JavaScript",
+    "Write a CSS flexbox layout for a responsive navbar",
+    "How do I merge two sorted arrays in Python?",
+    "What is the purpose of useEffect in React?",
+    "Write a function to find the longest palindrome in a string",
+    "How do I connect to a PostgreSQL database in Node.js?",
+    "Explain REST API conventions and best practices",
+    "Write a bash script to find and replace text in files"
+  ],
+  "results": {
+    "baseline": [
+      {
+        "input_tokens": 31,
+        "output_tokens": 470,
+        "total_tokens": 501
+      },
+      {
+        "input_tokens": 34,
+        "output_tokens": 1024,
+        "total_tokens": 1058
+      },
+      {
+        "input_tokens": 33,
+        "output_tokens": 590,
+        "total_tokens": 623
+      },
+      {
+        "input_tokens": 31,
+        "output_tokens": 1024,
+        "total_tokens": 1055
+      },
+      {
+        "input_tokens": 18,
+        "output_tokens": 601,
+        "total_tokens": 619
+      },
+      {
+        "input_tokens": 32,
+        "output_tokens": 1024,
+        "total_tokens": 1056
+      },
+      {
+        "input_tokens": 35,
+        "output_tokens": 1024,
+        "total_tokens": 1059
+      },
+      {
+        "input_tokens": 35,
+        "output_tokens": 561,
+        "total_tokens": 596
+      },
+      {
+        "input_tokens": 28,
+        "output_tokens": 1024,
+        "total_tokens": 1052
+      },
+      {
+        "input_tokens": 34,
+        "output_tokens": 1024,
+        "total_tokens": 1058
+      }
+    ],
+    "caveman-full": [
+      {
+        "input_tokens": 182,
+        "output_tokens": 151,
+        "total_tokens": 333
+      },
+      {
+        "input_tokens": 184,
+        "output_tokens": 449,
+        "total_tokens": 633
+      },
+      {
+        "input_tokens": 184,
+        "output_tokens": 221,
+        "total_tokens": 405
+      },
+      {
+        "input_tokens": 184,
+        "output_tokens": 642,
+        "total_tokens": 826
+      },
+      {
+        "input_tokens": 180,
+        "output_tokens": 352,
+        "total_tokens": 532
+      },
+      {
+        "input_tokens": 184,
+        "output_tokens": 282,
+        "total_tokens": 466
+      },
+      {
+        "input_tokens": 184,
+        "output_tokens": 372,
+        "total_tokens": 556
+      },
+      {
+        "input_tokens": 185,
+        "output_tokens": 325,
+        "total_tokens": 510
+      },
+      {
+        "input_tokens": 176,
+        "output_tokens": 641,
+        "total_tokens": 817
+      },
+      {
+        "input_tokens": 185,
+        "output_tokens": 258,
+        "total_tokens": 443
+      }
+    ],
+    "caveman-translate": [
+      {
+        "input_tokens": 268,
+        "output_tokens": 204,
+        "total_tokens": 472
+      },
+      {
+        "input_tokens": 269,
+        "output_tokens": 842,
+        "total_tokens": 1111
+      },
+      {
+        "input_tokens": 268,
+        "output_tokens": 329,
+        "total_tokens": 597
+      },
+      {
+        "input_tokens": 264,
+        "output_tokens": 453,
+        "total_tokens": 717
+      },
+      {
+        "input_tokens": 268,
+        "output_tokens": 258,
+        "total_tokens": 526
+      },
+      {
+        "input_tokens": 268,
+        "output_tokens": 583,
+        "total_tokens": 851
+      },
+      {
+        "input_tokens": 268,
+        "output_tokens": 1024,
+        "total_tokens": 1292
+      },
+      {
+        "input_tokens": 267,
+        "output_tokens": 317,
+        "total_tokens": 584
+      },
+      {
+        "input_tokens": 265,
+        "output_tokens": 632,
+        "total_tokens": 897
+      },
+      {
+        "input_tokens": 268,
+        "output_tokens": 110,
+        "total_tokens": 378
+      }
+    ]
+  }
+}
